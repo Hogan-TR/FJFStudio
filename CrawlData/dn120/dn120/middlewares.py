@@ -6,6 +6,8 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+from scrapy.http import Request
+import redis
 
 
 class Dn120SpiderMiddleware(object):
@@ -101,3 +103,31 @@ class Dn120DownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class DeduplicateMiddleware(object):
+    def __init__(self, host, port, passwd, set_key):
+        self.host = host
+        self.port = port
+        self.passwd = passwd
+        self.set_key = set_key
+        self.redisdb = redis.StrictRedis(
+            host=self.host, port=self.port, password=self.passwd, decode_responses=True)
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        settings = crawler.settings
+        host = settings.get('REDIS_HOST')
+        port = settings.get('REDIS_PORT')
+        passwd = settings.get('REDIS_PASSWORD')
+        set_key = settings.get('REDIS_SET_KEY')
+        return cls(host, port, passwd, set_key)
+
+    def process_spider_output(self, response, result, spider):
+        def _filter(request):
+            if isinstance(request, Request):
+                res = self.redisdb.sadd(self.set_key, request.url)
+                if not res:
+                    return False
+            return True
+        return (r for r in result or () if _filter(r))
