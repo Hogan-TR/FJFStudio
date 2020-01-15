@@ -8,6 +8,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from .models import Record
+import os
 
 
 # class Dn120Pipeline(object): # Json文件存储
@@ -41,6 +42,9 @@ class Dn120Pipeline(object):  # Postgresql 数据库存储
         DBSession = sessionmaker(bind=engine)
         self.session = DBSession()
 
+        with open("isRunning.txt", "a+") as f:  # 创建文件标记为正在运行
+            pass
+
     def process_item(self, item, spider):  # 必须
         data = Record(title=item['title'], link=item['link'], tags=item['tags'],
                       introduction=item['content']['introduction'], solve=item['content']['solve'], img=item['img_list'])
@@ -49,4 +53,5 @@ class Dn120Pipeline(object):  # Postgresql 数据库存储
         return item
 
     def close_spider(self, spider):  # 关闭数据库连接
+        os.remove("isRunning.txt") # 删除标记文件
         self.session.close()

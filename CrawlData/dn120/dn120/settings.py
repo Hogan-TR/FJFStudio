@@ -9,6 +9,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 import random
+import datetime
 
 
 BOT_NAME = 'dn120'
@@ -111,5 +112,16 @@ ITEM_PIPELINES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-# Database connection information
+# Database connection information - Postgresql
 PG_STR = "postgresql+psycopg2://postgres:320683@localhost:5432/test"
+
+# Database - Redis
+REDIS_HOST = "127.0.0.1"
+REDIS_PORT = 6379
+REDIS_PASSWORD = None
+REDIS_SET_KEY = "fingerprint"
+
+# Config of log
+LOG_LEVEL = "INFO"
+day = datetime.datetime.now()
+LOG_FILE = f"log/scrapy_{day.year}_{day.month}_{day.day}.log"
