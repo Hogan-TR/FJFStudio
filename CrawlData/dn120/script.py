@@ -74,7 +74,8 @@ while True:
         os.system("scrapy crawl jb51")
 
         conn.clean()  # 清空 set(可省略)
-
+        endTime = datetime.datetime.now()
+        print(f"At time:{endTime}, end clawer, spendTime: {endTime-clawerTime}")
         break  # 爬虫结束后，退出脚本
     else:
         print(
