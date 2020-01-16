@@ -1,3 +1,6 @@
+#! /root/Working/FJFStudio/CrawlData/venv/bin/python3
+# -*- coding: utf-8 -*-
+
 import os
 import time
 import datetime
@@ -62,24 +65,24 @@ while True:
         clawerTime = datetime.datetime.now()
         waitTime = clawerTime - startTime
         print(
-            f"At time:{clawerTime}, start clawer, waitTime:{waitTime}")
+            "At time:{}, start clawer, waitTime:{}".format(clawerTime, waitTime))
 
         conn = DataTransfer()  # 实例化
         conn.handler()  # 数据迁移
         conn.close()  # 预处理完成，断开连接
-
+        
         # cmdline.execute('scrapy crawl xitongcheng'.split())
-        os.system("scrapy crawl xitongcheng")  # 受限于学生机性能 - 单次仅执行一个
+        os.system("source /root/Working/FJFStudio/CrawlData/venv/bin/activate && cd /root/Working/FJFStudio/CrawlData/dn120 && scrapy crawl xitongcheng")  # 受限于学生机性能 - 单次仅执行一个
         time.sleep(120)  # 暂停2分钟
-        os.system("scrapy crawl jb51")
+        os.system("source /root/Working/FJFStudio/CrawlData/venv/bin/activate && cd /root/Working/FJFStudio/CrawlData/dn120 && scrapy crawl jb51")
 
         conn.clean()  # 清空 set(可省略)
         endTime = datetime.datetime.now()
-        print(f"At time:{endTime}, end clawer, spendTime: {endTime-clawerTime}")
+        print("At time:{}, end clawer, spendTime: {}".format(endTime, endTime-clawerTime))
         break  # 爬虫结束后，退出脚本
     else:
         print(
-            f"At time:{datetime.datetime.now()}, Scrapy is running, sleep to wait.")
+            "At time:{}, Scrapy is running, sleep to wait.".format(datetime.datetime.now()))
     time.sleep(600)  # 每10分钟检查一次
     minute += 10
     if minute >= 86400:  # 一天 24h, 86400min

@@ -26,3 +26,10 @@
 - [ ] 服务器部署
 
 - [ ] 长期测试
+
+**Step**
+
+1. 创建虚拟Python环境，从Python3.5向上兼容
+2. python3 ./CrawlData/dn120/dn120/db/ctable.py
+3. 可先手动启动测试
+4. crontab定时任务，调用script脚本(周期：一天)

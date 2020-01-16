@@ -66,7 +66,7 @@ class Jb51Spider(scrapy.Spider):
                 '//h1[@class="title"]/text()').extract_first()
 
             # 图片列表 有防盗链 无效
-            item['img_list'] = response.xpath('//p/img/@src').extract()
+            item['img_list'] = ["https" + each for each in response.xpath('//p/img/@src').extract()]
 
             # 介绍
             introduction = response.xpath(

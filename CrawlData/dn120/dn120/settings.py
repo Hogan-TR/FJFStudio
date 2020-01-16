@@ -125,4 +125,4 @@ REDIS_SET_KEY = "fingerprint"
 # Config of log
 LOG_LEVEL = "INFO"
 day = datetime.datetime.now()
-LOG_FILE = f"log/scrapy_{day.year}_{day.month}_{day.day}.log"
+LOG_FILE = "log/scrapy_{}_{}_{}.log".format(day.year, day.month, day.day)
