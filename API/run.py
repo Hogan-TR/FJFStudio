@@ -25,6 +25,7 @@ def get_data(keys):
     key_list = ['%{}%'.format(k) for k in keys.split()]
     rule = and_(*[Record.title.like(k) for k in key_list])
     data = session.query(Record).filter(rule).all()
+    session.close()
     if len(data) > 12:
         data = data[0:12]
     res = {"status": True, "data": []}
