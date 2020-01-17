@@ -3,6 +3,7 @@ import json
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import and_
 
 from models import Record, AlchemyEncoder
 
@@ -18,10 +19,12 @@ def hello():
     return 'Hello World'
 
 
-@app.route('/search/<string:key>', methods=['GET'])
-def get_data(key):
+@app.route('/search/<string:keys>', methods=['GET'])
+def get_data(keys):
     session = DBSession()
-    data = session.query(Record).filter(Record.title.contains(key)).all()
+    key_list = ['%{}%'.format(k) for k in keys.split()]
+    rule = and_(*[Record.title.like(k) for k in key_list])
+    data = session.query(Record).filter(rule).all()
     if len(data) > 12:
         data = data[0:12]
     res = {"status": True, "data": []}
