@@ -3,7 +3,7 @@ from models import Record
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-engine = create_engine('postgresql+psycopg2://postgres:320683@localhost:5432/test',
+engine = create_engine('postgresql+psycopg2://postgres:#bb991119#@localhost:6116/test',
                        encoding='utf-8')
 DBSession = sessionmaker(bind=engine)
 session = DBSession()

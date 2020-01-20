@@ -28,7 +28,7 @@ class DataTransfer(object):  # 预处理类
 
         # 创建Postgresql连接
         engine = create_engine(
-            "postgresql+psycopg2://postgres:320683@localhost:5432/test", encoding='utf-8')
+            "postgresql+psycopg2://postgres:#bb991119#@localhost:6116/test", encoding='utf-8')
         DBSession = sessionmaker(bind=engine)
         self.pgsession = DBSession()
 

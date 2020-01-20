@@ -114,7 +114,7 @@ ITEM_PIPELINES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 # Database connection information - Postgresql
-PG_STR = "postgresql+psycopg2://postgres:320683@localhost:5432/test"
+PG_STR = "postgresql+psycopg2://postgres:#bb991119#@localhost:6116/test"
 
 # Database - Redis
 REDIS_HOST = "127.0.0.1"

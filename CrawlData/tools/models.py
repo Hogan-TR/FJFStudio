@@ -41,7 +41,7 @@ class Record(Base):  # 定义 Record 对象 记录
 
 
 # # 初始化数据库连接
-engine = create_engine('postgresql+psycopg2://postgres:320683@localhost:5432/DNdata',
+engine = create_engine('postgresql+psycopg2://postgres:#bb991119#@localhost:6116/test',
                        encoding='utf-8', echo=False, pool_size=100, pool_recycle=10)
 
 # # 创建 DBSession 类型
